@@ -4,7 +4,7 @@ local __instance = {
     __index = goFast,
 };
 
-local goFastRunning = {}
+local goFastRunning = {};
 
 local goFast_globalCount = 0;
 
@@ -38,6 +38,7 @@ function goFast.New()
 
     goFastRunning[goFast_globalCount] = self
 
+    TriggerClientEvent('sublime-gofast:start', -1, self)
     return self;
 end
 
