@@ -21,10 +21,18 @@ local function GenCarMod()
     end
 
     local randomCategory = categories[math.random(1, #categories)]
-    local vehicles = ValidCarMod[randomCategory]
-    local randomVehicle = vehicles[math.random(1, #vehicles)]
+    return randomCategory
+end
 
-    return randomVehicle
+local function GenCarModel(category)
+    local vehicles = ValidCarMod[category]
+    if not vehicles or #vehicles == 0 then
+        print("[ERREUR] Aucun véhicule trouvé pour la catégorie : " .. tostring(category))
+        return nil
+    end
+
+    local randomIndex = math.random(1, #vehicles)
+    return vehicles[randomIndex]
 end
 
 function goFast.New()
@@ -33,6 +41,7 @@ function goFast.New()
     goFast_globalCount = goFast_globalCount + 1;
     self.eventId = goFast_globalCount;
     self.carType = GenCarMod();
+    self.carModel = GenCarModel(self.carType);
     self.timeCreated = os.time();
     self.state = true
 
